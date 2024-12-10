@@ -1,0 +1,111 @@
+<div class="container w-100">
+  <div class="card shadow-sm">
+    <div class="card-header text-center bg-primary text-white">
+      <h2 class="fw-bold mb-0">Gestión de Recargas</h2>
+    </div>
+
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Lista de Recargas</h5>
+        <button class="btn btn-sm btn-primary" (click)="openAddModal()">
+          <i class="fa-solid fa-plus me-2"></i>Agregar Recarga
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="table-primary text-center">
+            <tr>
+              <th>ID</th>
+              <th>Valor</th>
+              <th>Fecha</th>
+              <th>Operador</th>
+              <th>Vendedor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let recarga of recargas" class="text-center">
+              <td>{{ recarga?.id }}</td>
+              <td>{{ recarga?.valor }}</td>
+              <td>{{ recarga?.fecha }}</td>
+              <td>{{ getOperadorNombre(recarga.operadorId) }}</td>
+              <td>{{ getVendedorNombre(recarga.vendedorId) }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="openDeleteConfirmationModal(recarga)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para agregar recarga -->
+  <div *ngIf="showModal" class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Agregar Recarga</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="recargaForm" (ngSubmit)="saveRecarga()">
+            <div class="mb-3">
+              <label for="valor" class="form-label">Valor</label>
+              <input id="valor" type="text" class="form-control" formControlName="valor"
+                [class.is-invalid]="submitted && recargaForm.get('valor')?.invalid" />
+              <div *ngIf="submitted && recargaForm.get('valor')?.invalid" class="invalid-feedback">
+                El valor es requerido.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="operadorId" class="form-label">Operador</label>
+              <select id="operador" class="form-select" formControlName="operadorId">
+                <option *ngFor="let operador of operadores" [value]="operador.id">
+                  {{ operador.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="vendedorId" class="form-label">Vendedor</label>
+              <select id="vendedor" class="form-select" formControlName="vendedorId">
+                <option *ngFor="let vendedor of vendedores" [value]="vendedor.id">
+                  {{ vendedor.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Confirmación de Eliminación -->
+  <div *ngIf="showDeleteConfirmation" class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Eliminar Recarga</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar la recarga con ID: {{ selectedRecarga?.id }}?</p>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">Cancelar</button>
+            <button type="button" class="btn btn-danger" (click)="deleteRecarga()">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

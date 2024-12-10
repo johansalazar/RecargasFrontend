@@ -1,0 +1,21 @@
+/* Estilos para móviles */
+@media only screen and (max-width: 768px) {
+  .router-body {
+    padding: 60px;
+    /* Ejemplo de padding específico para móvil */
+    /* background-color: #06023f5b; */
+    /* Cambiar color de fondo */
+    width: 100% !important;
+  }
+}
+
+/* Estilos para escritorio */
+@media only screen and (min-width: 768px) {
+  .router-body {
+    padding: 60px;
+    /* Padding específico para escritorio */
+    /* background-color: #06023f5b; */
+    /* Cambiar color de fondo */
+    padding-left: 30px;
+  }
+}

@@ -1,0 +1,12 @@
+
+.hide {
+  display: none;
+}
+
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+.hide {
+  transform: translateX(-100%); /* Esto moverá el sidebar fuera de la pantalla */
+}

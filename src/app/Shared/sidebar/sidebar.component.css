@@ -1,0 +1,6 @@
+.active-link {
+  width: 100%;
+  font-weight:lighter;
+  color: #ffffff;
+  background-color: rgba(5, 0, 0, 0.295);
+}

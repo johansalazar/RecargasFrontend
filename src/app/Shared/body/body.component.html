@@ -1,0 +1,24 @@
+<!-- <div class="app-container">
+  <app-header></app-header>
+  <app-sidebar></app-sidebar> -->
+
+<!-- Body donde se renderizan los componentes -->
+<!-- <div class="body-container">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+<div class="col-12">
+  <app-header class="col-12 col-md-12"></app-header>
+
+  <!-- Sidebar a la izquierda, con una columna de 3 (tamaño pequeño en móviles) -->
+  <div class="row">
+    <app-sidebar class="col-md-2"></app-sidebar>
+
+    <!-- Body a la derecha, ocupando el resto del espacio -->
+    <div class="col-md-10 router-body">
+      <router-outlet ></router-outlet>
+    </div>
+  </div>
+</div>
+
